@@ -1,9 +1,7 @@
 {
   "name": "pombotv2",
-  "version": "1.0.0",
   "description": "Discord Bot Client.",
   "type": "commonjs",
-  "main": "index.js",
   "dependencies": {
     "asynckit": "^0.4.0",
     "combined-stream": "^1.0.8",
@@ -25,15 +23,14 @@
     "ws": "^8.6.0"
   },
   "scripts": {
-    "dev": "nodemon index.ts",
-    "debug": "tsc -p tsconfig.json && node dist/index.js"
+    "start": "tsc -p tsconfig.json && node dist/index.js",
+    "dev": "nodemon index.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Piarre/PomBot.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Piarre",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Piarre/PomBot/issues"

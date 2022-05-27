@@ -47,7 +47,7 @@ const sendRoleText = (client: Client) => {
       }
 
       const text = interaction?.options.getString("text") as string;
-      (await channel.send(text)).react("❌");
+      (await channel.send(text)).react("✅");
 
       if (interaction) {
         interaction.reply({

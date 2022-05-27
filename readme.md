@@ -3,7 +3,7 @@ Discord Bot Client.
 
 ## Features
 - 🚀 Slash commands with handler
-- 🍰 Testing bot with ```/test``` command
+<!-- - 🍰 Testing bot with ```/test``` command -->
 
 ## Avaible commands
 - ```/ping```
