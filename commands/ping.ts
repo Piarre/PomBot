@@ -1,7 +1,7 @@
 import { Client } from "discord.js";
-import Commands from "../utils/commands";
+import Command from "../utils/commandHandler";
 
-let cmd = new Commands();
+let cmd = new Command();
 
 const ping = (client: Client) => {
    cmd.createCommand(client, {
@@ -9,12 +9,10 @@ const ping = (client: Client) => {
       description: 'Pong !',
    });
 
-   client.on('interactionCreate', async (interaction) => {
+   client.on('interactionCreate', async interaction => {
       if (!interaction.isCommand()) return;
 
-      const { commandName, options, channel, member } = interaction;
-      
-      if (commandName === 'ping') {
+      if (interaction?.commandName === 'ping') {
          interaction.reply({
             content: 'Pong !',
          })

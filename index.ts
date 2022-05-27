@@ -1,32 +1,49 @@
-import DiscordJS, { Intents } from 'discord.js'
-import dotenv from 'dotenv'
-import ping from './commands/ping';
-import Commands from './utils/commands';
-dotenv.config()
+import DiscordJS, { Intents, PresenceData } from "discord.js";
+import { ActivityTypes } from "discord.js/typings/enums";
 
-let cmd = new Commands();
+import dotenv from "dotenv";
 
-const config = {
-   activity: {
-      name: 'With ',
-      type: 'WATCHING',
-   }
-}
+import ping from "./commands/ping";
+import clear from "./commands/clear";
 
-const pomBot = new DiscordJS.Client({
-   intents: [
-      Intents.FLAGS.GUILDS,
-      Intents.FLAGS.GUILD_MESSAGES,
-   ]
-})
+import kick from "./commands/moderations/kick";
+import ban from "./commands/moderations/ban";
 
-pomBot.on('ready', () => {
-   console.log(`Logged as ${pomBot.user?.tag}`)
-   pomBot.user?.setActivity(config.activity.name, {
-      type: 'WATCHING',
-   })
+import send from "./commands/roles/send"
+import addRole from "./commands/roles/addRole";
 
-   ping(pomBot);
-})
+dotenv.config();
 
-pomBot.login(process.env.TOKEN as string) 
+const pomBot = {
+  config: {
+    presence: {
+      activities: [
+        {
+          name: `for members`,
+          type: ActivityTypes.WATCHING,
+        },
+      ],
+      status: undefined,
+    },
+  },
+  client: new DiscordJS.Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  }),
+};
+
+pomBot.client.on("ready", () => {
+  pomBot.client.user?.setPresence(pomBot.config.presence as PresenceData);
+
+  ping(pomBot.client);
+  clear(pomBot.client);
+
+  kick(pomBot.client);
+  ban(pomBot.client);
+
+  send(pomBot.client);
+  addRole(pomBot.client);
+
+  console.log(`Logged as ${pomBot.client.user?.tag}`);
+});
+
+pomBot.client.login(process.env.TOKEN as string);
