@@ -16,12 +16,6 @@ import {
  * @param {EmbedFieldData} fileds You can add multiple fields to the embed.
  */
 class EmbedBuilder {
-  client: Client;
-  title: string;
-  description: string;
-  color: ColorResolvable;
-  fields?: EmbedFieldData[];
-
   constructor(
     client: Client,
     title: string,
@@ -29,21 +23,17 @@ class EmbedBuilder {
     color: ColorResolvable,
     fields?: EmbedFieldData[]
   ) {
-    this.client = client;
-    this.title = title;
-    this.description = description;
-    this.color = color;
-    this.fields = fields;
-    new MessageEmbed()
+    const returnEmbed = new MessageEmbed()
       .setTitle(title)
       .setDescription(description)
       .setColor(color)
-      .setTimestamp()
       .addFields(fields ?? [])
+      .setTimestamp()
       .setFooter(
         client?.user?.username as string,
         client?.user?.avatarURL() as string
       );
+    return returnEmbed;
   }
 }
 
