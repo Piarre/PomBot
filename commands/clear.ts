@@ -1,11 +1,9 @@
 import { Client, TextChannel } from "discord.js";
 import EmbedBuilder from "../utils/EmbedBuilder";
-import Command from "../utils/commandHandler";
-
-let cmd = new Command("Clear");
+import CommandBuilder from "../utils/CommandBuilder";
 
 const clear = async (client: Client) => {
-  cmd.createCommand(client, {
+  new CommandBuilder(client, {
     name: "clear",
     description: "Clear the current channel",
     options: [
@@ -54,7 +52,7 @@ const clear = async (client: Client) => {
           new EmbedBuilder(
             client,
             "Success",
-            "**${size}** are being deleted.",
+            `**${size}** are being deleted.`,
             "GREEN"
           ),
         ],

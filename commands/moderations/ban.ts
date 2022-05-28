@@ -1,11 +1,9 @@
 import { Client, GuildMember } from "discord.js";
 import EmbedBuilder from "../../utils/EmbedBuilder";
-import Command from "../../utils/commandHandler";
-
-let cmd = new Command("Ban");
+import CommandBuilder from "../../utils/CommandBuilder";
 
 const ban = async (client: Client) => {
-  cmd.createCommand(client, {
+  new CommandBuilder(client, {
     name: "ban",
     description: "Ban a member",
     options: [

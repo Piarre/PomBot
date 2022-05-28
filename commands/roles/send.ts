@@ -1,15 +1,12 @@
 import {
   Client,
-  EmojiIdentifierResolvable,
-  MessageEmbed,
   TextChannel,
 } from "discord.js";
 import EmbedBuilder from "../../utils/EmbedBuilder";
-import Command from "../../utils/commandHandler";
-let cmd = new Command("sendRoleText");
+import CommandBuilder from "../../utils/CommandBuilder";
 
 const sendRoleText = (client: Client) => {
-  cmd.createCommand(client, {
+  new CommandBuilder(client, {
     name: "sendroletext",
     description: "Send the dropdown roles selection.",
     options: [
@@ -70,7 +67,12 @@ const sendRoleText = (client: Client) => {
       if (interaction) {
         interaction?.reply({
           embeds: [
-            new EmbedBuilder(client, "Success", "The message has been sent.", "GREEN"),
+            new EmbedBuilder(
+              client,
+              "Success",
+              "The message has been sent.",
+              "GREEN"
+            ),
           ],
         });
       }

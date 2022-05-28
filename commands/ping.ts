@@ -1,14 +1,12 @@
 import { Client, MessageEmbed } from "discord.js";
 import EmbedBuilder from "../utils/EmbedBuilder";
-import Command from "../utils/commandHandler";
-
-const cmd = new Command("Ping");
+import CommandBuilder from "../utils/CommandBuilder"
 
 const ping = (client: Client) => {
-  cmd.createCommand(client, {
+  new CommandBuilder(client, {
     name: "ping",
     description: "Pong !",
-  });
+  })
 
   client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
@@ -20,6 +18,6 @@ const ping = (client: Client) => {
       });
     }
   });
-};
+}
 
 export default ping;

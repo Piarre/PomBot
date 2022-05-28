@@ -2,22 +2,23 @@ import { ApplicationCommandOptionData, Client } from "discord.js";
 
 /**
  * @author Piarre
- * @class Command
+ * @class CommandBuilder
  * @description Create fastly a slash command.
+ * @param {Client} client Specify the client to use.
+ * @param {ApplicationCommandOptionData} options
+ * @param {string} options.name
+ * @param {string} options.description
+ * @param {string[]} options.options
  */
-class Command {
-  constructor(commandName: string) {
-    console.log(`"${commandName}" loaded.`);
-  }
+class CommandBuilder {
+  client: Client;
+  options: {
+    name: string;
+    description: string;
+    options?: ApplicationCommandOptionData[];
+  };
 
-  /**
-   * @param {Client} client Specify the client to use.
-   * @param {ApplicationCommandOptionData} options
-   * @param {string} options.name
-   * @param {string} options.description
-   * @param {string[]} options.options
-   */
-  async createCommand(
+  constructor(
     client: Client,
     options: {
       name: string;
@@ -25,6 +26,9 @@ class Command {
       options?: ApplicationCommandOptionData[];
     }
   ) {
+    this.client = client;
+    this.options = options;
+
     const guildID = process.env.guildID as string;
     const guild = client.guilds.cache.get(guildID);
 
@@ -35,7 +39,9 @@ class Command {
       : (commands = client.application?.commands);
 
     commands?.create(options);
+
+    console.log(`"${options.name}" loaded.`);
   }
 }
 
-export default Command;
+export default CommandBuilder;

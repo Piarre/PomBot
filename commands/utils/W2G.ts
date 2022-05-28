@@ -1,12 +1,11 @@
 import { Client } from "discord.js";
 import axios from "axios";
 
-import Command from "../../utils/commandHandler";
+import CommandBuilder from "../../utils/CommandBuilder";
 import EmbedBuilder from "../../utils/EmbedBuilder";
-let cmd = new Command("W2G");
 
 const W2G = async (client: Client) => {
-  cmd.createCommand(client, {
+  new CommandBuilder(client, {
     name: "room",
     description: "Create a W2G room.",
   });

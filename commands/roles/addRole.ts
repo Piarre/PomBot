@@ -9,12 +9,11 @@ import {
   TextChannel,
 } from "discord.js";
 import EmbedBuilder from "../../utils/EmbedBuilder";
-import Command from "../../utils/commandHandler";
-
-let cmd = new Command("addRole");
+import CommandBuilder from "../../utils/CommandBuilder";
 
 const addRole = (client: Client) => {
-  cmd.createCommand(client, {
+
+  new CommandBuilder(client, {
     name: "addrole",
     description: "Add role to auto role message.",
     options: [
