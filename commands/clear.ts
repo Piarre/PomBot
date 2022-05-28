@@ -1,7 +1,8 @@
 import { Client, TextChannel } from "discord.js";
+import EmbedBuilder from "../utils/EmbedBuilder";
 import Command from "../utils/commandHandler";
 
-let cmd = new Command();
+let cmd = new Command("Clear");
 
 const clear = async (client: Client) => {
   cmd.createCommand(client, {
@@ -23,9 +24,19 @@ const clear = async (client: Client) => {
     if (!interaction.isCommand()) return;
 
     if (interaction?.commandName === "clear") {
-      if (!interaction?.memberPermissions?.has("ADMINISTRATOR") || !interaction?.memberPermissions?.has("MANAGE_MESSAGES")) {
+      if (
+        !interaction?.memberPermissions?.has("ADMINISTRATOR") ||
+        !interaction?.memberPermissions?.has("MANAGE_MESSAGES")
+      ) {
         return interaction?.reply({
-          content: "You don't have the permission to do that.",
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              `You don't have the permission to use this command.`,
+              "RED"
+            ),
+          ],
           ephemeral: true,
         });
       }
@@ -38,8 +49,15 @@ const clear = async (client: Client) => {
 
       messages.forEach((msg) => msg.delete());
 
-      interaction.reply({
-        content: `${size} messages are being delete.`,
+      interaction?.reply({
+        embeds: [
+          new EmbedBuilder(
+            client,
+            "Success",
+            "**${size}** are being deleted.",
+            "GREEN"
+          ),
+        ],
       });
     }
   });

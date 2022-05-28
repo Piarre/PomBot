@@ -1,6 +1,12 @@
-import { Client, EmojiIdentifierResolvable, TextChannel } from "discord.js";
+import {
+  Client,
+  EmojiIdentifierResolvable,
+  MessageEmbed,
+  TextChannel,
+} from "discord.js";
+import EmbedBuilder from "../../utils/EmbedBuilder";
 import Command from "../../utils/commandHandler";
-let cmd = new Command();
+let cmd = new Command("sendRoleText");
 
 const sendRoleText = (client: Client) => {
   cmd.createCommand(client, {
@@ -32,8 +38,14 @@ const sendRoleText = (client: Client) => {
         !interaction?.memberPermissions?.has("MANAGE_MESSAGES")
       ) {
         return interaction?.reply({
-          content: "You don't have the permission to do that.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "You do not have the permissions to use this command.",
+              "You need the `ADMINISTRATOR`, `MANAGE_ROLES` or `MANAGE_MESSAGES` permissions to use this command.",
+              "RED"
+            ),
+          ],
         });
       }
 
@@ -41,8 +53,14 @@ const sendRoleText = (client: Client) => {
 
       if (!channel || channel.type !== "GUILD_TEXT") {
         return interaction?.reply({
-          ephemeral: true,
-          content: "Please tag a channel",
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "The channel you provided is not a text channel.",
+              "RED"
+            ),
+          ],
         });
       }
 
@@ -50,9 +68,10 @@ const sendRoleText = (client: Client) => {
       (await channel.send(text)).react("✅");
 
       if (interaction) {
-        interaction.reply({
-          ephemeral: true,
-          content: "Message sent",
+        interaction?.reply({
+          embeds: [
+            new EmbedBuilder(client, "Success", "The message has been sent.", "GREEN"),
+          ],
         });
       }
     }

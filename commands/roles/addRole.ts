@@ -2,14 +2,16 @@ import {
   Client,
   GuildMember,
   MessageActionRow,
+  MessageEmbed,
   MessageSelectMenu,
   MessageSelectOptionData,
   Role,
   TextChannel,
 } from "discord.js";
+import EmbedBuilder from "../../utils/EmbedBuilder";
 import Command from "../../utils/commandHandler";
 
-let cmd = new Command();
+let cmd = new Command("addRole");
 
 const addRole = (client: Client) => {
   cmd.createCommand(client, {
@@ -46,8 +48,14 @@ const addRole = (client: Client) => {
         !interaction?.memberPermissions?.has("MANAGE_ROLES")
       ) {
         return interaction?.reply({
-          content: "You don't have the permission to do that.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need the `ADMINISTRATOR` or `MANAGE_ROLES` permission to use this command.",
+              "RED"
+            ),
+          ],
         });
       }
 
@@ -57,8 +65,14 @@ const addRole = (client: Client) => {
 
       if (!role) {
         return interaction?.reply({
-          content: "Please tag a role.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need to specify a role to add to the auto role message.",
+              "RED"
+            ),
+          ],
         });
       }
 
@@ -69,14 +83,27 @@ const addRole = (client: Client) => {
 
       if (!targetMessage) {
         return interaction?.reply({
-          content: "Please enter a valid message id.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "Please provide a valid message ID.",
+              "RED"
+            ),
+          ],
         });
       }
 
       if (targetMessage.author.id !== interaction?.client.user?.id) {
         return interaction?.reply({
-          content: `Please provide a message that was send by <@${interaction?.client.user?.id}>.`,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              `Please provide a message that was send by <@${interaction?.client.user?.id}>.`,
+              "RED"
+            ),
+          ],
         });
       }
 
@@ -96,7 +123,14 @@ const addRole = (client: Client) => {
           if (i.value === options[0].value) {
             return interaction?.reply({
               ephemeral: true,
-              content: `<@&${i.value}> is already part of this menu`,
+              embeds: [
+                new EmbedBuilder(
+                  client,
+                  "Error",
+                  "The role is already added.",
+                  "RED"
+                ),
+              ],
               allowedMentions: { roles: [] },
             });
           }
@@ -120,7 +154,9 @@ const addRole = (client: Client) => {
       });
 
       return interaction?.reply({
-        content: `<@&${role.id}> has been added to the auto role menu.`,
+        embeds: [
+          new EmbedBuilder(client, "Error", `<@&${role.id}> added to auto role message.`, "GREEN"),
+        ],
         allowedMentions: { roles: [] },
         ephemeral: true,
       });
@@ -135,9 +171,9 @@ const addRole = (client: Client) => {
       interaction?.member instanceof GuildMember
     ) {
       const component = interaction?.component as MessageSelectMenu;
-      const removed = component?.options.filter(option => {
+      const removed = component?.options.filter((option) => {
         return !interaction?.values.includes(option.value);
-      })
+      });
 
       for (const id of removed) {
         interaction?.member.roles.remove(id.value);
@@ -148,10 +184,16 @@ const addRole = (client: Client) => {
       }
 
       interaction?.reply({
-        content: "Roles updated.",
+        embeds: [
+          new EmbedBuilder(
+            client,
+            "Role uptated",
+            `<@&${interaction?.values[0]}> added to auto role message.`,
+            "GREEN"
+          ),
+        ],
         ephemeral: true,
       });
-
     }
   });
 };

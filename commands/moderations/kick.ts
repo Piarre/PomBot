@@ -1,7 +1,8 @@
-import { Client, GuildMember, TextChannel } from "discord.js";
+import { Client, GuildMember } from "discord.js";
+import EmbedBuilder from "../../utils/EmbedBuilder";
 import Command from "../../utils/commandHandler";
 
-let cmd = new Command();
+let cmd = new Command("Kick");
 
 const kick = async (client: Client) => {
   cmd.createCommand(client, {
@@ -32,26 +33,55 @@ const kick = async (client: Client) => {
       ) as GuildMember;
       const reason = interaction?.options.getString("reason") as string;
 
-      if (!target) interaction?.reply({ content: "Please tag a member." });
+      if (!target) {
+        return interaction?.reply({
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need to mention a member.",
+              "RED"
+            ),
+          ],
+        });
+      }
       if (!target.kickable) {
         interaction?.reply({
-          content: "You can' kick this user.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need to have the `KICK_MEMBERS` permission to kick this member.",
+              "RED"
+            ),
+          ],
         });
         return;
       }
 
       if (target == interaction?.member) {
-        interaction?.reply({
-          content: "You can' kick yourself.",
-          ephemeral: true,
+        return interaction?.reply({
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You can't kick yourself.",
+              "RED"
+            ),
+          ],
         });
-        return;
       }
 
       target.kick(reason).then(() => {
         interaction?.reply({
-          content: `<@${target.id}> has been kicked by ${interaction?.member} for : ${reason}.`,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              `${target.id} has been kicked by ${interaction?.member} for ${reason}`,
+              "GREEN"
+            ),
+          ],
         });
       });
     }

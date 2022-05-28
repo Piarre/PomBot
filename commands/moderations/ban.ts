@@ -1,7 +1,8 @@
-import { Client, GuildMember, TextChannel } from "discord.js";
+import { Client, GuildMember } from "discord.js";
+import EmbedBuilder from "../../utils/EmbedBuilder";
 import Command from "../../utils/commandHandler";
 
-let cmd = new Command();
+let cmd = new Command("Ban");
 
 const ban = async (client: Client) => {
   cmd.createCommand(client, {
@@ -39,21 +40,38 @@ const ban = async (client: Client) => {
       const reason = interaction?.options.getString("reason") as string;
       const days = interaction?.options.getNumber("days") as number;
 
-      if (!target) interaction?.reply({ content: "Please tag a member." });
+      if (!target) {
+        return interaction?.reply({
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need to mention a member.",
+              "RED"
+            ),
+          ],
+        });
+      }
       if (!target.bannable) {
         interaction?.reply({
-          content: "You can' ban this user.",
-          ephemeral: true,
+          embeds: [
+            new EmbedBuilder(
+              client,
+              "Error",
+              "You need to have the `BAN_MEMBERS` permission to ban this member.",
+              "RED"
+            ),
+          ],
         });
         return;
       }
 
       if (target == interaction?.member) {
-        interaction?.reply({
-          content: "You can' ban yourself.",
-          ephemeral: true,
+        return interaction?.reply({
+          embeds: [
+            new EmbedBuilder(client, "Error", "You can't ban yourself.", "RED"),
+          ],
         });
-        return;
       }
 
       target
@@ -63,7 +81,16 @@ const ban = async (client: Client) => {
         })
         .then(() => {
           interaction?.reply({
-            content: ` ${interaction?.member} banned <@${target.id}>  ${days ?? 7} day(s) for ${reason}.`,
+            embeds: [
+              new EmbedBuilder(
+                client,
+                "Success",
+                ` ${interaction?.member} banned <@${target.id}>  ${
+                  days ?? 7
+                } day(s) for ${reason}.`,
+                "GREEN"
+              ),
+            ],
           });
         });
     }

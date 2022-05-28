@@ -1,23 +1,25 @@
-import { Client } from "discord.js";
+import { Client, MessageEmbed } from "discord.js";
+import EmbedBuilder from "../utils/EmbedBuilder";
 import Command from "../utils/commandHandler";
 
-let cmd = new Command();
+const cmd = new Command("Ping");
 
 const ping = (client: Client) => {
-   cmd.createCommand(client, {
-      name: 'ping',
-      description: 'Pong !',
-   });
+  cmd.createCommand(client, {
+    name: "ping",
+    description: "Pong !",
+  });
 
-   client.on('interactionCreate', async interaction => {
-      if (!interaction.isCommand()) return;
+  client.on("interactionCreate", async (interaction) => {
+    if (!interaction.isCommand()) return;
 
-      if (interaction?.commandName === 'ping') {
-         interaction.reply({
-            content: 'Pong !',
-         })
-      }
-   });
-}
+    if (interaction?.commandName === "ping") {
+      const ping = client.ws.ping;
+      interaction.reply({
+        embeds: [new EmbedBuilder(client, "Pong !", `**${ping}ms**`, "GREEN")],
+      });
+    }
+  });
+};
 
 export default ping;
