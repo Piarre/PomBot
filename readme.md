@@ -20,6 +20,7 @@ Discord Bot Client.
 Create a ```.env``` file with
 - TOKEN=Get your token bot on [Discord Devlopers](discord.com/developers/applications)
 - guildID=The server id's on which you want the commands.
+- W2GKEY=Get your key on [Watch2Gether](https://community.w2g.tv/t/watch2gether-api-documentation/133767/1).
 
 ## Dropdown menu
 1. Send the message for the dropdown menu with : ```/sendroletext```

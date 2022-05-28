@@ -74,6 +74,7 @@ const sendRoleText = (client: Client) => {
               "GREEN"
             ),
           ],
+          ephemeral: true
         });
       }
     }

@@ -12,7 +12,6 @@ import EmbedBuilder from "../../utils/EmbedBuilder";
 import CommandBuilder from "../../utils/CommandBuilder";
 
 const addRole = (client: Client) => {
-
   new CommandBuilder(client, {
     name: "addrole",
     description: "Add role to auto role message.",
@@ -61,19 +60,6 @@ const addRole = (client: Client) => {
       const channel = interaction?.options.getChannel("channel") as TextChannel;
       const messageId = interaction?.options.getString("messageid") as string;
       const role = interaction?.options.getRole("role") as Role;
-
-      if (!role) {
-        return interaction?.reply({
-          embeds: [
-            new EmbedBuilder(
-              client,
-              "Error",
-              "You need to specify a role to add to the auto role message.",
-              "RED"
-            ),
-          ],
-        });
-      }
 
       const targetMessage = await channel.messages.fetch(messageId, {
         cache: true,
@@ -154,7 +140,12 @@ const addRole = (client: Client) => {
 
       return interaction?.reply({
         embeds: [
-          new EmbedBuilder(client, "Error", `<@&${role.id}> added to auto role message.`, "GREEN"),
+          new EmbedBuilder(
+            client,
+            "Success",
+            `<@&${role.id}> added to auto role message.`,
+            "GREEN"
+          ),
         ],
         allowedMentions: { roles: [] },
         ephemeral: true,
@@ -183,14 +174,7 @@ const addRole = (client: Client) => {
       }
 
       interaction?.reply({
-        embeds: [
-          new EmbedBuilder(
-            client,
-            "Role uptated",
-            `<@&${interaction?.values[0]}> added to auto role message.`,
-            "GREEN"
-          ),
-        ],
+        embeds: [new EmbedBuilder(client, "Success", `Roled updated`, "GREEN")],
         ephemeral: true,
       });
     }
