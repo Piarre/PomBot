@@ -11,6 +11,7 @@ Discord Bot Client.
 - Clear any channel with ```/clear``` up to 100 messages.
 - Get a Watch2Gehter link with ```/w2g```.
 - Get the BAN HAMMER ```/ban``` & ```/kick```.
+- Get you best streamer's channel with ```/streamers```.
 - Create a dropdown menu with [dropdown menu](https://github.com/Piarre/PomBot#dropdown-menu).
 
 ## Next features

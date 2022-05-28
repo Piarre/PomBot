@@ -12,6 +12,7 @@ import ban from "./commands/moderations/ban";
 import send from "./commands/roles/send"
 import addRole from "./commands/roles/addRole";
 import W2G from "./commands/utils/W2G";
+import getStreams from "./commands/utils/getStreams";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ pomBot.client.on("ready", () => {
   ping(pomBot.client);
   clear(pomBot.client);
   W2G(pomBot.client);
+  getStreams(pomBot.client);
 
   kick(pomBot.client);
   ban(pomBot.client);

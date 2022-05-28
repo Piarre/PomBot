@@ -1,6 +1,5 @@
 {
   "name": "pombotv2",
-  "version": "1.0.0",
   "description": "Discord Bot Client.",
   "main": "index.ts",
   "scripts": {

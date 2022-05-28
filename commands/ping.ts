@@ -1,4 +1,4 @@
-import { Client, MessageEmbed } from "discord.js";
+import { Client } from "discord.js";
 import EmbedBuilder from "../utils/EmbedBuilder";
 import CommandBuilder from "../utils/CommandBuilder"
 
@@ -14,7 +14,7 @@ const ping = (client: Client) => {
     if (interaction?.commandName === "ping") {
       const ping = client.ws.ping;
       interaction.reply({
-        embeds: [new EmbedBuilder(client, "Pong !", `**${ping}ms**`, "GREEN")],
+        embeds: [new EmbedBuilder(client, "Pong !", `**${ping}ms**`, "GREEN"),],
       });
     }
   });
