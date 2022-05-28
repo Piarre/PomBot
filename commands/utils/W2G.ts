@@ -17,7 +17,7 @@ const W2G = async (client: Client) => {
       axios
         .post("https://w2g.tv/rooms/create.json", {
           w2g_api_key:
-            "nzwu20938ycqqq7akb1ap6pnra3076u5d4gxr98jenp5hxli78ynpn1i3wze5k2b",
+            "puth Watch2Gether API key here. You can get one at https://community.w2g.tv/t/watch2gether-api-documentation/133767",
           bg_color: "#000000",
           bg_opacity: "50",
         })

@@ -9,8 +9,9 @@ Discord Bot Client.
 ## Avaible commands
 - Get the Bot ping with ```/ping```.
 - Clear any channel with ```/clear``` up to 100 messages.
+- Get a Watch2Gehter link with ```/w2g```.
 - Get the BAN HAMMER ```/ban``` & ```/kick```.
-- Create a dropdown menu with see : [menu](https://github.com/Piarre/PomBot#dropdown-menu).
+- Create a dropdown menu with [dropdown menu](https://github.com/Piarre/PomBot#dropdown-menu).
 
 ## Next features
 - Get the user info ```/userinfo```
@@ -18,7 +19,7 @@ Discord Bot Client.
 ## Using PomBot V2
 Create a ```.env``` file with
 - TOKEN=Get your token bot on [Discord Devlopers](discord.com/developers/applications)
-- guildID=The server id's on which you want the commands 
+- guildID=The server id's on which you want the commands.
 
 ## Dropdown menu
 1. Send the message for the dropdown menu with : ```/sendroletext```
