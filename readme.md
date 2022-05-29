@@ -18,10 +18,13 @@ Discord Bot Client.
 - Get the user info ```/userinfo```
 
 ## Using PomBot V2
-Create a ```.env``` file with
+Rename ```.prod.env``` to ```.env``` and here are the env variables :
 - TOKEN=Get your token bot on [Discord Devlopers](discord.com/developers/applications)
 - guildID=The server id's on which you want the commands.
 - W2GKEY=Get your key on [Watch2Gether](https://community.w2g.tv/t/watch2gether-api-documentation/133767/1).
+- onJoinRoleId=Role id to give on join
+- onJoinChannelId=Channel id to send the welcome message
+
 
 ## Dropdown menu
 1. Send the message for the dropdown menu with : ```/sendroletext```
@@ -32,6 +35,13 @@ Create a ```.env``` file with
    - channel: The same channel as ```/sendroletext``` command's
    - role: The role you want give/remove on select.
 
+## Auto start bot for debian
+#### Prerequisites
+   - Make sure that ts-node is installed
+   
+1. And ```auto-start-bot.sh``` file into ```/usr/local/sbin```
+2. sudo chmod +x /usr/local/sbin/auto-start-bot.sh
+3. Put ```auto-start-bot.service``` file into ```/usr/systemd/system/```
 
 ## License
 MIT

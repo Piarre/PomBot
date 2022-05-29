@@ -76,7 +76,7 @@ const kick = async (client: Client) => {
             new EmbedBuilder(
               client,
               "Error",
-              `${target.id} has been kicked by ${interaction?.member} for ${reason}`,
+              `${target.user.username}#${target.user.discriminator} has been kicked by ${interaction?.member} for ${reason}`,
               "GREEN"
             ),
           ],

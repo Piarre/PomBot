@@ -1,0 +1,8 @@
+[Unit]
+Description=Auto start Discord Bot Client by github.com/Piarre
+
+[Service]
+ExecStart=/usr/local/sbin/auto-start-bot.sh
+
+[Install]
+WantedBy=multi-user.target
